@@ -1,6 +1,7 @@
-package provider
+package lightstep
 
 import (
+	"os"
 	"testing"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -12,7 +13,7 @@ var testAccProvider *schema.Provider
 func init() {
 	testAccProvider = New()
 	testAccProviders = map[string]*schema.Provider{
-		"scaffolding": testAccProvider,
+		"lightstep": testAccProvider,
 	}
 }
 
@@ -27,4 +28,9 @@ func TestProvider_impl(t *testing.T) {
 }
 
 func testAccPreCheck(t *testing.T) {
+	for _, e := range []string{"LIGHTSTEP_API_KEY", "LIGHTSTEP_ORGANIZATION", "LIGHTSTEP_PROJECT"} {
+		if v := os.Getenv(e); v == "" {
+			t.Fatalf("%s must be set for acceptance tests", e)
+		}
+	}
 }

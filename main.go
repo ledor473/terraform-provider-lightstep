@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/hashicorp/terraform-provider-scaffolding/internal/provider"
+	"github.com/ledor473/terraform-provider-lightstep/internal/lightstep"
 )
 
 func main() {
-	plugin.Serve(&plugin.ServeOpts{ProviderFunc: provider.New})
+	plugin.Serve(&plugin.ServeOpts{ProviderFunc: lightstep.New})
 }
